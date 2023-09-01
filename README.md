@@ -1,6 +1,6 @@
 # Todolist_app has the following features
-View the todo list/n
-Add a new item/n
+View the todo list
+Add a new item
 Check/Uncheck/Delete the item
 Search the todo list
 User Authentication (without email features)
