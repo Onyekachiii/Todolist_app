@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-09r=h)h8aqz&me%4(m1jv!qq2vku6p&$*&=@yu+-#92vg2e=gj
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["onyeka-todo-list.onrender.com", "127.0.0.1"]
 
 
 # Application definition
@@ -79,7 +79,6 @@ WSGI_APPLICATION = 'todolistprj.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "OPTIONS": {
             "HOST":  os.getenv("POSTGRES_HOST"),
             "USER": os.getenv("POSTGRES_USERNAME"),
             "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
@@ -87,7 +86,6 @@ DATABASES = {
             "POST": os.getenv("POSTGRES_PORT"),
         },
     }
-}
 
 
 # Password validation
