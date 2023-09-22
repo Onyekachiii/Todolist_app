@@ -78,7 +78,6 @@ WSGI_APPLICATION = 'todolistprj.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "OPTIONS": {
             "HOST":  os.getenv("POSTGRES_HOST"),
             "USER": os.getenv("POSTGRES_USERNAME"),
             "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
@@ -86,7 +85,6 @@ DATABASES = {
             "POST": os.getenv("POSTGRES_PORT"),
         },
     }
-}
 
 
 # Password validation
