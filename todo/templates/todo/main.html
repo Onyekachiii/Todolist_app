@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Tech Titan's To Do List</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap" rel="stylesheet">
+</head>
+<style>
+    body {
+            background: rgb(7,1,1);
+            background: linear-gradient(100deg, rgba(7,1,1,0.5384278711484594) 0%, rgba(199,63,0,0.33674719887955185) 0%);
+            font-family: 'helvetica neue', helvetica, arial, sans-serif;
+            padding-top: 50px;
+        }
+
+        .container {
+            max-width: 550px;
+            margin: auto;
+            background-color: #FBCEB1;
+            -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+        }
+
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px 5px 0 0;
+            background: #7C0A02;
+        }
+
+        .header-bar a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'helvetica neue', helvetica, arial, sans-serif;
+        }
+
+        .task-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                background-color: #FBCEB1;
+                border-top: 1px solid #dfe4ea;
+                overflow: hidden;
+        }
+
+        .task-title {
+            display: flex;
+            padding: 20px;
+            background-color: #FBCEB1;
+        }
+
+        .task-title a {
+            text-decoration: none;
+            color: #58111A;
+            margin-left: 10px;
+        }
+
+        .task-complete-icon {
+            height: 20px;
+            width: 20px;
+            background-color: rgb(0, 255, 0);
+            border-radius: 50%;
+        }
+
+        .task-incomplete-icon {
+            height: 20px;
+            width: 20px;
+            background-color: rgb(160, 160, 160);
+            border-radius: 50%;
+        }
+
+        .delete-link {
+            text-decoration: none;
+            font-weight: 900;
+            color: #6249cf;
+            font-size: 22px;
+            line-height: 0;
+            padding: 20px 20px;
+        }
+
+        #search-add-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        input[type="text"],
+        input[type=password] {
+            border: 1px solid #757575;
+            border-radius: 5px;
+            padding: 10px;
+            width: 60%;
+        }
+
+        label {
+            padding-top: 10px! important;
+            display: block;
+        }
+
+        ::placeholder {
+            font-weight: 300;
+            opacity: 0.5;
+        }
+
+        .button {
+            border: 1px solid #757575;
+            background-color: #FFF;
+            color: #58111A;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        #add-link {
+            color: #58111A;
+            text-decoration: none;
+            font-size: 42px;
+            text-shadow: 1px 1px #81413b;
+        }
+        
+    }
+</style>
+<body>
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</body>
+</html>

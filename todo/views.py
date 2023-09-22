@@ -1,0 +1,104 @@
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.contrib.auth.views import LoginView
+from django.views.generic import FormView
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from .models import Task
+
+
+# Create your views here.
+
+class TaskList(LoginRequiredMixin, ListView):
+    model = Task
+    context_object_name = 'task'
+    
+# To make sure each user only sees their own tasks, we need to define the get_context_data() method in TaskList class:
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["task"] = context['task'].filter(user=self.request.user)
+        context["count"] = context['task'].filter(complete=False).count()
+        
+        
+# To define the search functionality, we need to define the get_queryset() method in TaskList class:
+        search_input = self.request.GET.get('search-area') or ''
+        if search_input:
+            context['task'] = context['task'].filter(
+                title__icontains = search_input)
+            context['search_input'] = search_input
+        return context
+        
+
+# To show the tasks, we use the imported DetailView
+
+class TaskDetail(LoginRequiredMixin, DetailView):
+    model = Task
+    context_object_name = 'task'
+    template_name = 'todo/task.html'
+
+# To create a new task, we use the imported CreateView
+
+class TaskCreate(LoginRequiredMixin, CreateView):
+    model = Task
+    fields = ['title', 'description', 'complete']
+    success_url = reverse_lazy('task')
+    
+# To make sure each task created is customized to the appropriate user
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(TaskCreate, self).form_valid(form)
+
+# To update a task, we use the imported UpdateView
+
+class TaskUpdate(LoginRequiredMixin, UpdateView):
+    model = Task
+    fields = ['title', 'description', 'complete']
+    success_url = reverse_lazy('task')
+
+# To delete a task, we use the imported DeleteView
+
+class TaskDelete(LoginRequiredMixin, DeleteView):
+    model = Task
+    context_object_name = 'task'
+    success_url = reverse_lazy('task')
+    template_name = 'todo/task_confirm_delete.html'
+
+# To create a custom login page, we use the imported LoginView 
+
+class CustomLoginView(LoginView):
+    template_name = 'todo/login.html'
+    fields = '__all__'
+    redirect_authenticated_user = True
+    
+    def get_success_url(self):
+        return reverse_lazy('task')
+    
+# To create a custom register page, we use the imported FormView
+    
+class RegisterPage(FormView):
+    template_name = 'todo/register.html'
+    form_class = UserCreationForm
+    redirect_authenticated_user = True
+    success_url = reverse_lazy('task')
+    
+# To save the registered user in the database, we use a form.save method
+
+    def form_valid(self, form):
+        user = form.save()
+        if user is not None:
+            login(self.request, user)
+        return super(RegisterPage, self).form_valid(form)
+    
+# To make sure a logged in user cannot access the RegisterPage, we define the get method
+
+    def get(self, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('task')
+        return super(RegisterPage, self).get(*args, **kwargs)
+
