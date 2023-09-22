@@ -76,9 +76,15 @@ WSGI_APPLICATION = 'todolistprj.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "OPTIONS": {
+            "host":  os.getenv("POSTGRES_HOST"),
+            "user": os.getenv("POSTGRES_USERNAME"),
+            "password": os.getenv("POSTGRES_PASSWORD"),
+            "dbname": os.getenv("POSTGRES_DBNAME"),
+            "port": os.getenv("POSTGRES_PORT"),
+        },
     }
 }
 
