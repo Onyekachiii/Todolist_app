@@ -117,9 +117,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+
+PROJECT_DIR = os.path.abspath(os.path.dirname(__file__))
+
 STATIC_URL = 'static/'
 
-STATIC_ROOT = "/var/www/onyeka-todo-list.onrender.com/static/"
+STATIC_ROOT = os.path.join(PROJECT_DIR,'static')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
