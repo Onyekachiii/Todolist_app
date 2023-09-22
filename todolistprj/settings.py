@@ -77,13 +77,13 @@ WSGI_APPLICATION = 'todolistprj.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         "OPTIONS": {
-            "host":  os.getenv("POSTGRES_HOST"),
-            "user": os.getenv("POSTGRES_USERNAME"),
-            "password": os.getenv("POSTGRES_PASSWORD"),
-            "dbname": os.getenv("POSTGRES_DBNAME"),
-            "port": os.getenv("POSTGRES_PORT"),
+            "HOST":  os.getenv("POSTGRES_HOST"),
+            "USER": os.getenv("POSTGRES_USERNAME"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+            "NAME": os.getenv("POSTGRES_DBNAME"),
+            "POST": os.getenv("POSTGRES_PORT"),
         },
     }
 }
