@@ -7,6 +7,7 @@
     <title>Tech Titan's To Do List</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 </head>
 <style>
     body {
@@ -138,8 +139,29 @@
             text-shadow: 1px 1px #81413b;
         }
         
-    }
 </style>
+
+<script>
+    $(function() {
+        $( "#sortable" ).sortable({
+            update: function( event, ui ) {
+                var data = $(this).sortable('serialize');
+                $.ajax({
+                    url: '/update_order/', 
+                    method: 'POST',
+                    data: data,
+                    success: function(response) {
+                        // Handle the success response
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle the error response
+                    }
+                });
+            }
+        });
+    });
+</script>
+
 <body>
     <div class="container">
         {% block content %}

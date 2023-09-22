@@ -9,6 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
+from django.http import JsonResponse
 from .models import Task
 
 
@@ -33,6 +34,11 @@ class TaskList(LoginRequiredMixin, ListView):
                 title__icontains = search_input)
             context['search_input'] = search_input
         return context
+    
+    def task_list(request):
+       tasks = Task.objects.order_by('order').all()
+       context = {'task': tasks}
+       return render(request, 'task_list.html', context)
         
 
 # To show the tasks, we use the imported DetailView
@@ -101,4 +107,22 @@ class RegisterPage(FormView):
         if self.request.user.is_authenticated:
             return redirect('task')
         return super(RegisterPage, self).get(*args, **kwargs)
+    
+    
+    
+    
+# To make the task list ordered depending on priority
+def update_order(request):
+    if request.method == 'POST' and request.is_ajax():
+           
+# Get the ordered task ids from the POST data
+        ordered_ids = request.POST.getlist('task[]')
+           
+# Update the order of the tasks based on the ordered_ids list
+        for index, tasks_id in enumerate(ordered_ids):
+            task = Task.objects.get(id=task_id)
+            task.order = index
+            task.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False})
 

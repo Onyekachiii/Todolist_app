@@ -9,6 +9,7 @@ class Task(models.Model):
     description = models.TextField(null=True, blank=True)
     complete = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
+    order = models.PositiveIntegerField(default=0)
     
     def __str__(self):
         return self.title
